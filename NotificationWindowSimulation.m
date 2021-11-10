@@ -44,8 +44,10 @@ Infectivity_since_infection_asym = Rasym*Infectivity_since_infection; % Asymptom
 Symptoms_since_infection = C/sum(C); 
 
 
-
-%Figure 2B
+%% ------------------------Generating results for Figure 2B ----------------------------------- Varying Window length
+%Here we explore the impact of different notification window lengths,
+%assuming 100% active app use (i.e. p = 1). Doing so, we produce an
+%analogous figure to Figure 2B, but via explit simulation. To increase accuracy, increase N
 
 for w = 1:11
        
@@ -190,7 +192,19 @@ set(gcf, 'Position', [300, 300, 600, 500]);
 set(gca, 'FontSize', 16);
 
 
-%Figure 2C; 
+%% -------------------Generating results regarding lower levels of active app use (Figures 2c, 2d and 2a-f)
+%Here we consider the impact of active app use on results, considering 5
+%scenarios:
+
+%scenario 1 - 5 day window, equal active app use to 2 day window
+%scenario 2 - 5 day window, 80% active app use compared to 2 day window
+%scenario 3 - 5 day window, 60% active app use compared to 2 day window
+%scenario 4 - 5 day window, 40% active app use compared to 2 day window
+%scenario 5 - 2 day window
+
+%These results are then used to generate an analogous Figure to Figure 2c,
+%but via explicit stochastic simulation. To increase accuracy, increase N.
+
 
 for scenario = 1:2
        
