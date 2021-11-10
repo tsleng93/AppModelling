@@ -3,7 +3,9 @@
 % Written by Trystan Leng  Last update: 5/11/21
 
 clear
-%Figure 2A
+%% ---------------Figure 2A-------------------------------------------------
+%Here we plot the normalised test probability profiles from Hellewell et
+%al, which we use to inform the time the base case is detected
 
 %For LFTs
 Detection_times = readtable('LFT_curve_summary.csv'); %probability of testing +ve on a given day (in tenths of day)
@@ -30,15 +32,18 @@ alpha = 5.62; beta = 0.98; %Infectiousness profile parameters
 symalpha = 5.807; symbeta = 0.948; %Time to symptom onset parameters
 Rsym = 1; Rasym = 0.5; %R for symptomatics and asymptomatics
 A = 0.3; %Proportion of population asymptomatic
-%delayinresults = 0; %delay in results (for LFT)
-delayinresults = 2; %delay in results (for PCR)
+delayinresults = 0; %delay in results (for LFT)
+%delayinresults = 2; %delay in results (for PCR)
 i_sympt = 10.5; i_notif = 10.5; %isolation period after symptom onset and after notification (from day of last contact)
 
 Duration = length(T);
 ProbInterval = 1001;
 
 
-%Figure 2B - Varying Window length
+%% ------------------------Generating results for Figure 2B ----------------------------------- Varying Window length
+%Here we explore the impact of different notification window lengths,
+%assuming 100% active app use (i.e. p = 1)
+
 
 parfor windowlength = 1:101
     
@@ -133,9 +138,19 @@ set(gcf, 'Position', [300, 300, 600, 500]);
 set(gca, 'FontSize', 16);
 %}
 
-%Figures 2c and S2a-f - Impact of adherence
+%% -------------------Generating results regarding lower levels of active app use (Figures 2c, 2d and 2a-f)
+%Here we consider the impact of active app use on results, considering 5
+%scenarios:
 
-Duration = 1 + 10*(length(T) - 1); %Finer granularity for Figure S3 Plots
+%scenario 1 - 5 day window, equal active app use to 2 day window
+%scenario 2 - 5 day window, 80% active app use compared to 2 day window
+%scenario 3 - 5 day window, 60% active app use compared to 2 day window
+%scenario 4 - 5 day window, 40% active app use compared to 2 day window
+%scenario 5 - 2 day window
+
+%These results are then used to generate Figures 2c,2d and S2
+
+Duration = 1 + 10*(length(T) - 1); %Finer granularity required for Figure S2 Plots
 
 %Duration = length(T);
 clearvars PrimMat SecMat
@@ -296,11 +311,11 @@ set(gca, 'FontSize', 16);
 
 
 
-%Figure S3
+%Figure S2
 xs = (0:(ProbInterval-1))/(ProbInterval-1);
 ys = (0:(Duration-1))/((Duration-1)/30);
 
-%Figure S3A - R surface for 2-day window
+%Figure S2A - R surface for 2-day window
  figure;
  
 Secsurf = squeeze(Secwindow(1,:,:));
@@ -324,7 +339,7 @@ set(get(h,'label'),'string','% reduction in R^* with 5-day window');
 set(gcf, 'Position', [300, 300, 600, 500])
 set(gca, 'FontSize', 16);
    
-%Figure S3B - R surface for 5-day window
+%Figure S2B - R surface for 5-day window
  figure;
  
 Secsurf = squeeze(Secwindow(5,:,:));
@@ -348,7 +363,7 @@ set(get(h,'label'),'string','% reduction in R^* with 2-day window');
 set(gcf, 'Position', [300, 300, 600, 500])
 set(gca, 'FontSize', 16);
    
-%Figure S3C - Difference assuming equal adherence
+%Figure S2C - Difference assuming equal adherence
 figure;
 Secsurf = squeeze(Secwindow(5,:,:) - Secwindow(1,:,:));
 Secsurf(abs(Secsurf) < 1e-10) = 0; %remove numerical errors
@@ -373,7 +388,7 @@ set(get(h,'label'),'string','Improvement of 5-day window over  2-day window');
 set(gcf, 'Position', [300, 300, 600, 500])
 set(gca, 'FontSize', 16);
 
-%Figure S3D - Difference assuming 80% adherence relative to 2-day adherence
+%Figure S2D - Difference assuming 80% adherence relative to 2-day adherence
 figure;
 Secsurf = squeeze(Secwindow(5,:,:) - Secwindow(2,:,:));
 Primsurf = Primwindow(5,:);
@@ -397,7 +412,7 @@ set(get(h,'label'),'string','Improvement of 5-day window over  2-day window');
 set(gcf, 'Position', [300, 300, 600, 500])
 set(gca, 'FontSize', 16);
 
-%Figure S3E - Difference assuming 60% adherence relative to 2-day adherence
+%Figure S2E - Difference assuming 60% adherence relative to 2-day adherence
 figure;
 Secsurf = squeeze(Secwindow(5,:,:) - Secwindow(3,:,:));
 Primsurf = Primwindow(5,:);
@@ -421,7 +436,7 @@ set(get(h,'label'),'string','Improvement of 5-day window over  2-day window');
 set(gcf, 'Position', [300, 300, 600, 500])
 set(gca, 'FontSize', 16);
 
-%Figure S3F - Difference assuming 40% adherence relative to 2-day adherence
+%Figure S2F - Difference assuming 40% adherence relative to 2-day adherence
 figure;
 Secsurf = squeeze(Secwindow(5,:,:) - Secwindow(4,:,:));
 Primsurf = Primwindow(5,:);
@@ -446,7 +461,14 @@ set(gcf, 'Position', [300, 300, 600, 500])
 set(gca, 'FontSize', 16);
 
 
-%Figure S4A - %Detection PDFs given regular testing
+%% ----- Results for Figure S3, exploring the impact of regular testing
+
+%In Figure S3A we plot the detection time profiles of an asymptomatic base
+%case assuming they take an LFT every r consecutive days, while in Figure
+%3B we consider the % active app use required for a 5-day window to be
+%optimal (referred to as epsilon in the manuscript)
+
+%Figure S3A - %Detection PDFs given regular testing
 Duration = length(T);
 
 ProbDetect =  Detection_times.median;
@@ -483,7 +505,7 @@ set(gcf, 'Position', [300, 300, 600, 500]);
 set(gca, 'FontSize', 16);
 legend('baseline (base case takes one-off test)', '7 days between consecutive tests', '3 days between consecutive tests');
 
-%Figure S4B %adherence level required given base case tests positive on day d
+%Figure S3B %adherence level required given base case tests positive on day d
 for INIT = 1:Duration
     
 init = (INIT-1)/((Duration-1)/30); %day base case has test
