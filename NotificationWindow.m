@@ -4,7 +4,7 @@
 
 
 
-clearvars -except Rwindowsim Reduction2sim Reduction5sim R2p0 R5p0 R5upp0 R2upp0 R2downp0 R5downp0 Reduction5firstway Reduction2firstway
+clearvars 
 %% ---------------Figure 2A-------------------------------------------------
 %Here we plot the normalised test probability profiles from Hellewell et
 %al, which we use to inform the time the base case is detected
