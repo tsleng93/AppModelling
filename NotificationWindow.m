@@ -681,12 +681,6 @@ H5vec(INIT) = H2;
 EpsOptimal(INIT) = (G*(gamcdf(init, shape, scale) - gamcdf(init-2, shape, scale)) - H2)/(G*(gamcdf(init, shape, scale) - gamcdf(init-5, shape, scale)) - H5);
 EpsOptimalAbove(INIT) = (G*(gamcdf(init, shape, scale) - gamcdf(init-2, shape, scale)) - H2);
 EpsOptimalBelow(INIT) = (G*(gamcdf(init, shape, scale) - gamcdf(init-5, shape, scale)) - H5);
-
-EpsOptimal2(INIT) = (G*( gamcdf(init-2, shape, scale) - gamcdf(init, shape, scale)) + H2)/(G*( gamcdf(init-5, shape, scale) - gamcdf(init, shape, scale)) + H5);
-EpsOptimalAbove2(INIT) = (G*( gamcdf(init-2, shape, scale) - gamcdf(init, shape, scale)) + H2);
-EpsOptimalBelow2(INIT) = (G*( gamcdf(init-5, shape, scale) - gamcdf(init, shape, scale)) + H5);
-
-
 end
 
 
