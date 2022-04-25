@@ -424,7 +424,7 @@ set(gca, 'FontSize', 16);
 xs = (0:(ProbInterval-1))/(ProbInterval-1);
 ys = (0:(Duration-1))/((Duration-1)/30);
 
-%Figure S3A - R surface for 2-day window
+%Figure S3A - R surface for 5-day window
  figure;
  
 Secsurf = squeeze(Secwindow(1,:,:));
@@ -449,7 +449,7 @@ set(get(h,'label'),'string','% reduction in R^* with 5-day window');
 set(gcf, 'Position', [300, 300, 600, 500])
 set(gca, 'FontSize', 16);
    
-%Figure S3B - R surface for 5-day window
+%Figure S3B - R surface for 2-day window
  figure;
  
 Secsurf = squeeze(Secwindow(5,:,:));
