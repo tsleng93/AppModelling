@@ -1,5 +1,7 @@
 # AppModelling
 
+[![DOI](https://zenodo.org/badge/424266988.svg)](https://zenodo.org/badge/latestdoi/424266988)
+
 This repository contains the underlying model code for the manuscript "The effect of notification window length on the epidemiological impact of COVID-19 mobile contact tracing applications", written in Matlab version 2021a.
 
 To generate the underlying plots For Figures 2, and S3-S5, simply run 'NotificationWindow.m'. To generate the plots for Figure S1, uncomment relevant lines of code so that the base case individual is detected via a PCR test rather than an LFT.
